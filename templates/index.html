@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Impressão 3D</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Impressão 3D</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="file">Carregar Arquivo STL:</label>
+            <input type="file" name="file" id="file" accept=".stl" required>
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if volume is defined and tempo is defined and preco is defined %}
+            <h2>Resultados:</h2>
+            <p><strong>Volume:</strong> {{ volume | round(2) }} mm³</p>
+            <p><strong>Tempo de Impressão:</strong> {{ tempo | round(2) }} minutos</p>
+            <p><strong>Preço:</strong> R$ {{ preco | round(2) }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
